@@ -1,0 +1,123 @@
+import java.util.Scanner;
+
+public class WeatherApp {
+
+    // Function to fetch weather data from the API (Replace API_URL_HERE with the actual API URL)
+    private static WeatherData[] getWeatherData() {
+        String apiResponse = ""; // Replace with API call to get JSON response
+        // Parse the JSON response and create an array of WeatherData objects
+        // Implement JSON parsing here and return an array of WeatherData objects
+        return new WeatherData[0]; // Replace with parsed weather data
+    }
+
+    // Function to get weather by date
+    private static double getWeatherByDate(WeatherData[] weatherData, String date) {
+        for (WeatherData data : weatherData) {
+            if (data.getDate().equals(date)) {
+                return data.getTemperature();
+            }
+        }
+        return -1; // Return -1 if data not found for the given date
+    }
+
+    // Function to get wind speed by date
+    private static double getWindSpeedByDate(WeatherData[] weatherData, String date) {
+        for (WeatherData data : weatherData) {
+            if (data.getDate().equals(date)) {
+                return data.getWindSpeed();
+            }
+        }
+        return -1; // Return -1 if data not found for the given date
+    }
+
+    // Function to get pressure by date
+    private static double getPressureByDate(WeatherData[] weatherData, String date) {
+        for (WeatherData data : weatherData) {
+            if (data.getDate().equals(date)) {
+                return data.getPressure();
+            }
+        }
+        return -1; // Return -1 if data not found for the given date
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        WeatherData[] weatherData = getWeatherData();
+
+        while (true) {
+            System.out.println("1. Get weather");
+            System.out.println("2. Get Wind Speed");
+            System.out.println("3. Get Pressure");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            if (choice == 0) {
+                System.out.println("Exiting the program.");
+                break;
+            } else if (choice == 1) {
+                System.out.print("Enter the date (YYYY-MM-DD): ");
+                String date = scanner.nextLine();
+                double temperature = getWeatherByDate(weatherData, date);
+                if (temperature != -1) {
+                    System.out.printf("Temperature on %s: %.2f°C%n", date, temperature);
+                } else {
+                    System.out.println("Data not available for the given date.");
+                }
+            } else if (choice == 2) {
+                System.out.print("Enter the date (YYYY-MM-DD): ");
+                String date = scanner.nextLine();
+                double windSpeed = getWindSpeedByDate(weatherData, date);
+                if (windSpeed != -1) {
+                    System.out.printf("Wind Speed on %s: %.2f m/s%n", date, windSpeed);
+                } else {
+                    System.out.println("Data not available for the given date.");
+                }
+            } else if (choice == 3) {
+                System.out.print("Enter the date (YYYY-MM-DD): ");
+                String date = scanner.nextLine();
+                double pressure = getPressureByDate(weatherData, date);
+                if (pressure != -1) {
+                    System.out.printf("Pressure on %s: %.2f hPa%n", date, pressure);
+                } else {
+                    System.out.println("Data not available for the given date.");
+                }
+            } else {
+                System.out.println("Invalid choice. Please try again.");
+            }
+        }
+        scanner.close();
+    }
+}
+
+// Class to represent weather data for a particular date
+class WeatherData {
+    private String date;
+    private double temperature;
+    private double windSpeed;
+    private double pressure;
+
+    public WeatherData(String date, double temperature, double windSpeed, double pressure) {
+        this.date = date;
+        this.temperature = temperature;
+        this.windSpeed = windSpeed;
+        this.pressure = pressure;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public double getPressure() {
+        return pressure;
+    }
+}
